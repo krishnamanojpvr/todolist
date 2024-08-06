@@ -32,7 +32,7 @@ export default function UserAddTasks() {
       };
       const token = localStorage.getItem("token");
       
-      await axios.post("http://localhost:4000/api/usertasks/addtask", newTask, {
+      await axios.post("https://tdlback.vercel.app/api/usertasks/addtask", newTask, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -44,7 +44,7 @@ export default function UserAddTasks() {
       setMessage("");
       setLoader(false);
       let username = localStorage.getItem("username");
-      await axios.post("http://localhost:4000/api/subsid/trigger",{username});
+      await axios.post("https://tdlback.vercel.app/api/subsid/trigger",{username});
     } catch (error) {
       setLoader(false);
       

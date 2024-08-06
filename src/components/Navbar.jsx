@@ -20,7 +20,7 @@ const Navbar = () => {
       try {
         try {
           const response = await axios.post(
-            "http://localhost:4000/api/users/check",
+            "https://tdlback.vercel.app/api/users/check",
             { token }
           );
           if (response.status === 200) {
@@ -44,7 +44,7 @@ const Navbar = () => {
       try {
         let username = localStorage.getItem("username");
         const subscriberResponse = await axios.post(
-          "http://localhost:4000/api/subsid/subsId_generate",
+          "https://tdlback.vercel.app/api/subsid/subsId_generate",
           { distinct_id: username }
         );
 

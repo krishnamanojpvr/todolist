@@ -18,7 +18,7 @@ export default function UserManageTasks() {
     const fetchTasks = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await axios.get("http://localhost:4000/api/usertasks/gettasks", {
+        const response = await axios.get("https://tdlback.vercel.app/api/usertasks/gettasks", {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -60,7 +60,7 @@ export default function UserManageTasks() {
       const token = localStorage.getItem("token");
       
       await axios.put(
-        `http://localhost:4000/api/usertasks/updatetask/${currentTask._id}`,
+        `https://tdlback.vercel.app/api/usertasks/updatetask/${currentTask._id}`,
         {updatedTask,token}
         // {
         //   headers: {
@@ -82,7 +82,7 @@ export default function UserManageTasks() {
     try {
       const token = localStorage.getItem("token");
       await axios.put(
-        `http://localhost:4000/api/usertasks/deletetask/${currentTask._id}`,
+        `https://tdlback.vercel.app/api/usertasks/deletetask/${currentTask._id}`,
         {token}
         // {
         //   headers: {

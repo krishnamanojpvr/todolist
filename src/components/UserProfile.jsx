@@ -13,7 +13,7 @@ const Profile = () => {
       try {
         const token = localStorage.getItem("token");
         const response = await axios.get(
-          "http://localhost:4000/api/users/getuser",
+          "https://tdlback.vercel.app/api/users/getuser",
           {
             headers: {
               Authorization: `Bearer ${token}`,
