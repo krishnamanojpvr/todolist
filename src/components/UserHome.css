@@ -1,0 +1,12 @@
+.card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Normal shadow */
+    transition: box-shadow 0.3s ease, transform 0.3s ease; /* Smooth transition */
+  }
+  
+  .card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Elevated shadow on hover */
+    transform: translateY(-8px); /* Elevation effect */
+  }
+  .userhome{
+    min-height: 100vh;
+  }

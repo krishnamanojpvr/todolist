@@ -1,0 +1,12 @@
+.notfound {
+  min-height: 100vh;
+  padding: 50px 0; /* Adjust padding as needed */
+  }
+  
+  .contentnotfound {
+   max-width: 500px;
+    background: rgba(255, 255, 255, 0.6); /* Semi-transparent background to enhance backdrop-filter effect */
+    backdrop-filter: blur(10px); /* Apply the blur effect */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+    
+  }

@@ -1,0 +1,10 @@
+.userprofile{
+    min-height: 100vh;
+}
+.table th {
+    background-color: #f8f9fa;
+  }
+  .table td, .table th {
+    vertical-align: middle;
+  }
+  

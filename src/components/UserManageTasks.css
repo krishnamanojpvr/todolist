@@ -1,0 +1,27 @@
+
+.usermanagetasks {
+    min-height: 100vh;
+    max-width: 800px;
+    margin: auto;
+  }
+  
+  .table {
+    margin-top: 20px;
+  }
+  
+  .table th {
+    cursor: pointer;
+  }
+  
+  .table th:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .table th, .table td {
+    text-align: center;
+  }
+  
+  .alert {
+    margin-top: 20px;
+  }
+  
