@@ -58,14 +58,15 @@ export default function UserManageTasks() {
   const handleUpdateTask = async () => {
     try {
       const token = localStorage.getItem("token");
+      console.log(token)
       await axios.put(
         `http://localhost:4000/api/usertasks/updatetask/${currentTask._id}`,
-        updatedTask,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
+        {updatedTask,token}
+        // {
+        //   headers: {
+        //     Authorization: `${token}`
+        //   }
+        // }
       );
       setTasks(tasks.map(task =>
         task._id === currentTask._id ? { ...task, ...updatedTask } : task
@@ -80,13 +81,14 @@ export default function UserManageTasks() {
   const handleDeleteTask = async () => {
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(
+      await axios.put(
         `http://localhost:4000/api/usertasks/deletetask/${currentTask._id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
+        {token}
+        // {
+        //   headers: {
+        //     Authorization: `${token}`
+        //   }
+        // }
       );
       setTasks(tasks.filter(task => task._id !== currentTask._id));
       setShowModal(false);

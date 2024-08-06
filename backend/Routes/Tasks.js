@@ -89,20 +89,23 @@ router.get("/gettasks", async (req, res) => {
 });
 
 router.put('/updatetask/:id', async (req, res) => {
-  const { authhead } = req.headers.authorization;
-  console.log(authhead);
+  // const { authhead } = req.headers.authorization;
+  // console.log(authhead);
 
-  if (!authhead) {
-    return res.status(400).send("No user found");
-  }
+  // if (!authhead) {
+  //   return res.status(400).send("No user found");
+  // }
 
-  const token = authhead.split(" ")[1];
-  if(!token){
-    return res.status(400).send("No token found");
-  }
+  // const token = authhead.split(" ")[1];
+  // if(!token){
+  //   return res.status(400).send("No token found");
+  // }
+
+  const {token} = req.body;
 
   jwt.verify(token, process.env.SECRET_KEY, async (err, decoded) => {
     if (err) {
+      console.log(err)
       return res.status(401).json({ message: "Invalid token" });
     }
 
@@ -111,9 +114,11 @@ router.put('/updatetask/:id', async (req, res) => {
     const user = await userschema.findOne({ username, name });
 
     const taskId = req.params.id;
-    const updatedTask = req.body;
+    console.log(taskId)
+    const {updatedTask} = req.body;
+    console.log(updatedTask)
 
-    const taskIndex = user.tasks.findIndex(task => task.id === taskId);
+    const taskIndex = user.tasks.findIndex(task => task._id === taskId);
     if (taskIndex === -1) {
       return res.status(404).send("Task not found");
     }
@@ -130,15 +135,17 @@ router.put('/updatetask/:id', async (req, res) => {
 });
 
 
-router.delete('/deletetask/:id', async (req, res) => {
-  const { token } = req.headers.authorization?.split(' ')[1];
+router.put('/deletetask/:id', async (req, res) => {
+  // const { token } = req.headers.authorization?.split(' ')[1];
 
-  if (!token) {
-    return res.status(400).send("No user found");
-  }
+  // if (!token) {
+  //   return res.status(400).send("No user found");
+  // }
 
+  const {token} = req.body;
   jwt.verify(token, process.env.SECRET_KEY, async (err, decoded) => {
     if (err) {
+      console.log(err)
       return res.status(401).json({ message: "Invalid token" });
     }
 
@@ -148,7 +155,7 @@ router.delete('/deletetask/:id', async (req, res) => {
 
     const taskId = req.params.id;
 
-    const taskIndex = user.tasks.findIndex(task => task.id === taskId);
+    const taskIndex = user.tasks.findIndex(task => task._id === taskId);
     if (taskIndex === -1) {
       return res.status(404).send("Task not found");
     }
@@ -159,7 +166,6 @@ router.delete('/deletetask/:id', async (req, res) => {
       await user.save();
       res.status(200).send("Task deleted successfully");
     } catch (err) {
-      console.log(error);
       res.status(500).send("Error deleting task. Please try again.");
     }
   });
