@@ -34,14 +34,14 @@ export default function Register() {
         "http://localhost:4000/api/users/register",
         { name, username, password, gmail, mobilenumber }
       );
-      console.log(response.data);
+      
       setLoader(true);
       setTimeout(() => {
         setLoader(false);
         navigate("/login");
       }, 2000);
     } catch (err) {
-      console.log("Error registering user. Please try again.");
+      
     }
   };
 

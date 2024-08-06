@@ -25,7 +25,7 @@ export default function Home() {
             setLogin(true);
           }
           setUser(response.data.name);
-          console.log(response);
+          
         } catch (err) {
           setLogin(false);
         }

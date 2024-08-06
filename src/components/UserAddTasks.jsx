@@ -31,7 +31,7 @@ export default function UserAddTasks() {
         priority: parseInt(priority),
       };
       const token = localStorage.getItem("token");
-      console.log(token);
+      
       await axios.post("http://localhost:4000/api/usertasks/addtask", newTask, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -47,7 +47,7 @@ export default function UserAddTasks() {
       await axios.post("http://localhost:4000/api/subsid/trigger",{username});
     } catch (error) {
       setLoader(false);
-      console.error("Error adding task:", error);
+      
     }
   };
 

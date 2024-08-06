@@ -32,26 +32,24 @@ router.post('/subsId_generate', (req, res) => {
 );
 
 router.post('/trigger', async (req, res) => {
-    const {distinct_id} = req.body;
+    const {username} = req.body;
     const workflow_payload = {
         "workflow": process.env.SUPRSEND_WORKFLOW_NAME,
         "recipients": [
           {
-            "distinct_id": distinct_id,
+            "distinct_id": username,
           }
         ],
         "data":{
-          "username":distinct_id
+          "username":username
         }
     }
     const wf = new WorkflowTriggerRequest(workflow_payload)
 
     try {
       const response = await supr_client.workflows.trigger(wf);
-      console.log("response", response);
       res.status(202).json({ status: 'success', data: response });
   } catch (error) {
-      console.error('Error triggering workflow:', error);
       res.status(500).json({ status: 'error', message: 'Failed to trigger workflow' });
   }
 });

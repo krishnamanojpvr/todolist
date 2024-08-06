@@ -58,7 +58,7 @@ export default function UserManageTasks() {
   const handleUpdateTask = async () => {
     try {
       const token = localStorage.getItem("token");
-      console.log(token)
+      
       await axios.put(
         `http://localhost:4000/api/usertasks/updatetask/${currentTask._id}`,
         {updatedTask,token}

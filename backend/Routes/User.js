@@ -19,14 +19,15 @@ router.post('/register', async (req, res) => {
     const suprSendUser = supr_client.user.get_instance(username);
   
     try{
+        
         const response = await suprSendUser.save()
-        console.log(response);
+        
         await user.save();
-        console.log('User registered successfully');
+       
         res.status(200).send('User registered successfully');
     }
     catch(err){
-        console.log(err);
+        
         res.status(500).send('Error registering user. Please try again.');
     }
     

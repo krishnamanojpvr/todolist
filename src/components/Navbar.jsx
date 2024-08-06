@@ -27,7 +27,6 @@ const Navbar = () => {
             setLogin(true);
           }
           setUser(response.data.name);
-          console.log(response);
         } catch (err) {
           setLogin(false);
         }
@@ -41,27 +40,29 @@ const Navbar = () => {
 
   useEffect(() => {
     const generateSubscriberId = async () => {
-        if (!login) return;
-        try {
-            // const subscriberResponse = await axios.post('http://localhost:4000/api/subsid/subsId_generate');
-            let username =  localStorage.getItem("username")
-            const subscriberResponse = await axios.post('http://localhost:4000/api/subsid/subsId_generate',{distinct_id: username });
-            console.log(subscriberResponse);
-            setSubscriberId(subscriberResponse.data);
-        } catch (err) {
-            console.log('Error generating subscriber id:', err);
-        }
-    };      
+      if (!login) return;
+      try {
+        let username = localStorage.getItem("username");
+        const subscriberResponse = await axios.post(
+          "http://localhost:4000/api/subsid/subsId_generate",
+          { distinct_id: username }
+        );
+
+        setSubscriberId(subscriberResponse.data);
+      } catch (err) {
+        return;
+      }
+    };
 
     generateSubscriberId();
-}, [login, user]);
-  
-  const handlelogout= async (e) =>{
+  }, [login, user]);
+
+  const handlelogout = async (e) => {
     e.preventDefault();
     localStorage.removeItem("token");
     setLogin(false);
-    navigate('/')
-  }
+    navigate("/");
+  };
 
   return (
     <div className="d-flex justify-content-center">
@@ -70,31 +71,39 @@ const Navbar = () => {
         style={{ width: "90%", maxWidth: "1200px" }}
       >
         <div className="container-fluid">
-          {!login && (<Link className="navbar-brand d-flex align-items-center" to="/">
-            <img
-              src="./task-list.svg"
-              alt="logo"
-              style={{
-                width: "40px",
-                height: "40px",
-                padding: "0.8px",
-              }}
-            />
-            <span className="fs-5 text-dark fw-semibold ms-2">To Do List</span>
-          </Link>)}
-          {login && (<Link className="navbar-brand d-flex align-items-center" to="/userhome">
-            <img
-              src="./task-list.svg"
-              alt="logo"
-             
-              style={{
-                width: "40px",
-                height: "40px",
-                padding: "0.8px",
-              }}
-            />
-            <span className="fs-5 text-dark fw-semibold ms-2">Home</span>
-          </Link>)}
+          {!login && (
+            <Link className="navbar-brand d-flex align-items-center" to="/">
+              <img
+                src="./task-list.svg"
+                alt="logo"
+                style={{
+                  width: "40px",
+                  height: "40px",
+                  padding: "0.8px",
+                }}
+              />
+              <span className="fs-5 text-dark fw-semibold ms-2">
+                To Do List
+              </span>
+            </Link>
+          )}
+          {login && (
+            <Link
+              className="navbar-brand d-flex align-items-center"
+              to="/userhome"
+            >
+              <img
+                src="./task-list.svg"
+                alt="logo"
+                style={{
+                  width: "40px",
+                  height: "40px",
+                  padding: "0.8px",
+                }}
+              />
+              <span className="fs-5 text-dark fw-semibold ms-2">Home</span>
+            </Link>
+          )}
           <button
             className="navbar-toggler"
             type="button"
@@ -127,12 +136,18 @@ const Navbar = () => {
             >
               <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li className="nav-item">
-                  <Link className="nav-link text-dark fw-bold" to="/userprofile">
+                  <Link
+                    className="nav-link text-dark fw-bold"
+                    to="/userprofile"
+                  >
                     {user}
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link text-danger fw-bold" onClick={handlelogout}>
+                  <Link
+                    className="nav-link text-danger fw-bold"
+                    onClick={handlelogout}
+                  >
                     Logout
                   </Link>
                 </li>
@@ -158,8 +173,8 @@ const Navbar = () => {
                     },
                   }}
                   themeType="light / dark"
-                  // workspaceKey={process.env.REACT_APP_SUPRSEND_WORKSPACE_KEY}
-                  workspaceKey="YApBQPbxLEjEsdpMC69o"
+                  workspaceKey={process.env.REACT_APP_SUPRSEND_WORKSPACE_KEY}
+                  
                   subscriberId={subscriberId}
                   distinctId={localStorage.getItem("username")}
                 />

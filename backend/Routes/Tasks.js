@@ -105,7 +105,7 @@ router.put('/updatetask/:id', async (req, res) => {
 
   jwt.verify(token, process.env.SECRET_KEY, async (err, decoded) => {
     if (err) {
-      console.log(err)
+      
       return res.status(401).json({ message: "Invalid token" });
     }
 
@@ -114,9 +114,9 @@ router.put('/updatetask/:id', async (req, res) => {
     const user = await userschema.findOne({ username, name });
 
     const taskId = req.params.id;
-    console.log(taskId)
+   
     const {updatedTask} = req.body;
-    console.log(updatedTask)
+    
 
     const taskIndex = user.tasks.findIndex(task => task._id === taskId);
     if (taskIndex === -1) {
@@ -145,7 +145,7 @@ router.put('/deletetask/:id', async (req, res) => {
   const {token} = req.body;
   jwt.verify(token, process.env.SECRET_KEY, async (err, decoded) => {
     if (err) {
-      console.log(err)
+      
       return res.status(401).json({ message: "Invalid token" });
     }
 
