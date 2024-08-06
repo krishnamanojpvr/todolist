@@ -43,6 +43,8 @@ export default function UserAddTasks() {
       setPriority("");
       setMessage("");
       setLoader(false);
+      let username = localStorage.getItem("username");
+      await axios.post("http://localhost:4000/api/subsid/trigger",{username});
     } catch (error) {
       setLoader(false);
       console.error("Error adding task:", error);

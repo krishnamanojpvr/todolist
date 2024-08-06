@@ -32,7 +32,7 @@ router.post('/subsId_generate', (req, res) => {
 );
 
 router.post('/trigger', async (req, res) => {
-    const {distinct_id,task,date} = req.body;
+    const {distinct_id} = req.body;
     const workflow_payload = {
         "workflow": process.env.SUPRSEND_WORKFLOW_NAME,
         "recipients": [
@@ -41,9 +41,7 @@ router.post('/trigger', async (req, res) => {
           }
         ],
         "data":{
-          "first_name": "User",
-          "task": task,
-          "date": date
+          "username":distinct_id
         }
     }
     const wf = new WorkflowTriggerRequest(workflow_payload)

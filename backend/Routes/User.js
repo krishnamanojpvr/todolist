@@ -5,7 +5,7 @@ const userschema = require('../Models/UserSchema.js');
 const jwt = require('jsonwebtoken');
 const bycrypt = require('bcrypt');
 const {Suprsend} = require("@suprsend/node-sdk");
-// const supr_client = new Suprsend(process.env.SUPRSEND_WORKSPACE_KEY, process.env.SUPRSEND_WORKSPACE_SECRET);
+const supr_client = new Suprsend(process.env.SUPRSEND_WORKSPACE_KEY, process.env.SUPRSEND_WORKSPACE_SECRET);
 router.post('/register', async (req, res) => {
     const { name, username, password, gmail, mobilenumber } = req.body;
     if (!username || !password || !gmail || !mobilenumber || !name) {
@@ -16,10 +16,11 @@ router.post('/register', async (req, res) => {
 
     const user = new userschema({ name, username, password : hashPassword, gmail, mobilenumber });
 
-    // const suprSendUser = supr_client.user.get_instance(username);
+    const suprSendUser = supr_client.user.get_instance(username);
   
     try{
-        // const response = suprSendUser.save()
+        const response = await suprSendUser.save()
+        console.log(response);
         await user.save();
         console.log('User registered successfully');
         res.status(200).send('User registered successfully');
@@ -51,7 +52,7 @@ router.post('/login', async (req, res) => {
 
     try{
         const token = jwt.sign({ username,name }, process.env.SECRET_KEY, { expiresIn: '2h' });
-        res.send({ token });
+        res.send({ token,username });
     }
     catch(err){
         res.status(500).send('Error logging in. Please try again.');

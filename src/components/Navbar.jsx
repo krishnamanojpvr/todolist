@@ -38,6 +38,23 @@ const Navbar = () => {
 
     checkLoginStatus();
   }, [location]);
+
+  useEffect(() => {
+    const generateSubscriberId = async () => {
+        if (!login) return;
+        try {
+            // const subscriberResponse = await axios.post('http://localhost:4000/api/subsid/subsId_generate');
+            let username =  localStorage.getItem("username")
+            const subscriberResponse = await axios.post('http://localhost:4000/api/subsid/subsId_generate',{distinct_id: username });
+            console.log(subscriberResponse);
+            setSubscriberId(subscriberResponse.data);
+        } catch (err) {
+            console.log('Error generating subscriber id:', err);
+        }
+    };      
+
+    generateSubscriberId();
+}, [login, user]);
   
   const handlelogout= async (e) =>{
     e.preventDefault();
@@ -119,7 +136,7 @@ const Navbar = () => {
                     Logout
                   </Link>
                 </li>
-                {/* <SuprSendInbox
+                <SuprSendInbox
                   theme={{
                     badge: {
                       backgroundColor: "pink",
@@ -141,10 +158,11 @@ const Navbar = () => {
                     },
                   }}
                   themeType="light / dark"
-                  workspaceKey={process.env.REACT_APP_SUPRSEND_WORKSPACE_KEY}
+                  // workspaceKey={process.env.REACT_APP_SUPRSEND_WORKSPACE_KEY}
+                  workspaceKey="YApBQPbxLEjEsdpMC69o"
                   subscriberId={subscriberId}
-                  distinctId={ticketDetails.username}
-                /> */}
+                  distinctId={localStorage.getItem("username")}
+                />
               </ul>
             </div>
           )}
